@@ -44,4 +44,13 @@ describe("The Users Model", () => {
       expect(foundUser).toEqual(user);
     });
   });
+  describe("the remove user function", () => {
+    it("should remove a user by its username", async () => {
+      const user = await User.insert({ username: "test1", password: "test1" });
+      await User.remove("test1");
+      const foundUser = await User.findByUsername("test1");
+
+      expect(foundUser).toEqual([]);
+    });
+  });
 });
