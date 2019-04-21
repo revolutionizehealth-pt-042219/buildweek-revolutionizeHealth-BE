@@ -68,12 +68,16 @@ describe("The Users Router", () => {
       expect(res.status).toBe(200);
       expect(res.body.token).not.toBe(undefined);
     });
-    xit("should return 200 on a successful login", async () => {
-      const user = { username: "test1", password: "test1" };
-      db("users").insert(user);
+    it("should return 200 on a successful login", async () => {
+      let user = { username: "test1", password: "test1" };
+      const hash = bcrypt.hashSync(user.password, 13);
+      user.password = hash;
+      await db("users").insert(user);
+
+      const credentials = { username: "test1", password: "test1" };
       const res = await req(server)
         .post(route + "/login")
-        .send(user);
+        .send(credentials);
       expect(res.status).toBe(200);
     });
   });
