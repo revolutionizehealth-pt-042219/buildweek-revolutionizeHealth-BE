@@ -50,7 +50,7 @@ describe("The Users Model", () => {
       await User.remove("test1");
       const foundUser = await User.findByUsername("test1");
 
-      expect(foundUser).toEqual([]);
+      expect(foundUser).toBe(undefined);
     });
   });
 });
