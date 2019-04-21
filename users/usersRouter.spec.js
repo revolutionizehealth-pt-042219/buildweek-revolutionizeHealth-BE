@@ -1,6 +1,7 @@
 const req = require("supertest");
 const server = require("../server");
 const db = require("../database/dbConfig");
+const bcrypt = require("bcryptjs");
 
 beforeEach(() => {
   return db("users").truncate();
@@ -53,6 +54,27 @@ describe("The Users Router", () => {
         .post(route + "/login")
         .send(user);
       expect(res.status).toBe(400);
+    });
+    it("should send back a JWT on successful login", async () => {
+      let user = { username: "test1", password: "test1" };
+      const hash = bcrypt.hashSync(user.password, 13);
+      user.password = hash;
+      await db("users").insert(user);
+
+      const credentials = { username: "test1", password: "test1" };
+      const res = await req(server)
+        .post(route + "/login")
+        .send(credentials);
+      expect(res.status).toBe(200);
+      expect(res.body.token).not.toBe(undefined);
+    });
+    xit("should return 200 on a successful login", async () => {
+      const user = { username: "test1", password: "test1" };
+      db("users").insert(user);
+      const res = await req(server)
+        .post(route + "/login")
+        .send(user);
+      expect(res.status).toBe(200);
     });
   });
 });

@@ -31,6 +31,18 @@ router.post("/login", async (req, res) => {
     res
       .status(400)
       .json({ message: "please provide a username and password to login" });
+  } else {
+    try {
+      const user = await Users.findByUsername(username);
+      if (user && bcrypt.compareSync(password, user.password)) {
+        const token = genToken(user);
+        res.status(200).json({ token });
+      } else {
+        res.status(401).json({ message: "invalid credentials" });
+      }
+    } catch (e) {
+      res.status(500).json({ e });
+    }
   }
 });
 
