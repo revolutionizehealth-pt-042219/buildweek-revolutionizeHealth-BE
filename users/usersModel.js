@@ -1,6 +1,6 @@
 const db = require("../database/dbConfig");
 
-module.exports = { insert, update };
+module.exports = { insert, update, findByUsername };
 
 async function insert(user) {
   // returns the idea of the newly inserted user
@@ -16,5 +16,11 @@ async function update(id, changes) {
     .update(changes);
   return db("users")
     .where({ id })
+    .first();
+}
+
+function findByUsername(username) {
+  return db("users")
+    .where({ username })
     .first();
 }
