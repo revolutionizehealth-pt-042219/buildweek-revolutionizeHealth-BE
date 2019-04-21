@@ -25,4 +25,13 @@ router.post("/register", async (req, res) => {
   }
 });
 
+router.post("/login", async (req, res) => {
+  let { username, password } = req.body;
+  if (!username || !password) {
+    res
+      .status(400)
+      .json({ message: "please provide a username and password to login" });
+  }
+});
+
 module.exports = router;
