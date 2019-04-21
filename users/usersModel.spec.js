@@ -36,4 +36,12 @@ describe("The Users Model", () => {
       expect(updatedUser.password).toBe("test2");
     });
   });
+  describe("find by user function", () => {
+    it("should return a user by its username", async () => {
+      const user = await User.insert({ username: "test1", password: "test1" });
+      const foundUser = await User.findByUsername("test1");
+
+      expect(foundUser).toEqual(user);
+    });
+  });
 });
