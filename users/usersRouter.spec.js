@@ -39,4 +39,20 @@ describe("The Users Router", () => {
       expect(res.status).toBe(400);
     });
   });
+  describe("POST /login", () => {
+    it("should return 400 if password is not provided", async () => {
+      const user = { username: "test1" };
+      const res = await req(server)
+        .post(route + "/login")
+        .send(user);
+      expect(res.status).toBe(400);
+    });
+    it("should return 400 if username is not provided", async () => {
+      const user = { password: "test1" };
+      const res = await req(server)
+        .post(route + "/login")
+        .send(user);
+      expect(res.status).toBe(400);
+    });
+  });
 });
