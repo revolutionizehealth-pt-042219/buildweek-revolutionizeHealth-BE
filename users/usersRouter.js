@@ -58,11 +58,11 @@ router.post("/login", async (req, res) => {
 });
 
 //get info about single user
-router.get("/:username", authenticate, async (req, res) => {
-  const { username } = req.params;
-  console.log(username);
+router.get("/:id", authenticate, async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
   try {
-    const userInfo = await Users.getUserInfoByUsername(username);
+    const userInfo = await Users.getUserInfoById(id);
     res.status(200).json(userInfo);
   } catch (e) {
     dumpError(e);
