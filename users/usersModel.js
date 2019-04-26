@@ -1,11 +1,13 @@
 const db = require("../database/dbConfig");
+const { insertIfDoesNotExist } = require("../insurance/insuranceHelpers");
 
 module.exports = {
   insert,
   update,
   findByUsername,
   remove,
-  getUserInfoByUsername
+  getUserInfoByUsername,
+  getUserInfoById
 };
 
 async function insert(userInfo) {
@@ -74,12 +76,34 @@ async function insert(userInfo) {
 }
 
 async function update(id, changes) {
-  await db("users")
+  //check for insurance
+  const { has_insurance, insurance_name } = changes;
+  let insurance_id;
+  //if it exists set the new id
+  if (has_insurance && insurance_name) {
+    insurance_id = await insertIfDoesNotExist(insurance_name);
+  }
+
+  //get users_info subset of changes
+  let userChanges = (({
+    first_name,
+    last_name,
+    email,
+    has_insurance,
+    type
+  }) => ({
+    first_name,
+    last_name,
+    email,
+    has_insurance,
+    insurance_id,
+    type
+  }))(changes);
+
+  await db("users_info")
     .where({ id })
-    .update(changes);
-  return db("users")
-    .where({ id })
-    .first();
+    .update(userChanges);
+  return getUserInfoById(id);
 }
 
 function findByUsername(username) {
@@ -103,7 +127,26 @@ function getUserInfoByUsername(username) {
     .from("users")
     .where({ username })
     .innerJoin("users_info", "users_info.user_id", "users.id")
-    .innerJoin("insurance_info", "insurance_info.id", "users_info.insurance_id")
+    .leftJoin("insurance_info", "insurance_info.id", "users_info.insurance_id") //need this for if insurance is null
+    .first();
+}
+
+function getUserInfoById(id) {
+  return db
+    .select(
+      "users.id",
+      "username",
+      "first_name",
+      "last_name",
+      "email",
+      "has_insurance",
+      "insurance_name",
+      "type"
+    )
+    .from("users")
+    .where({ "users.id": id })
+    .innerJoin("users_info", "users_info.user_id", "users.id")
+    .leftJoin("insurance_info", "insurance_info.id", "users_info.insurance_id")
     .first();
 }
 

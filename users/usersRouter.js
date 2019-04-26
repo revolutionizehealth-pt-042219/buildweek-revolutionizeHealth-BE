@@ -70,4 +70,18 @@ router.get("/:username", authenticate, async (req, res) => {
   }
 });
 
+router.put("/:id", authenticate, async (req, res) => {
+  const { id } = req.params;
+  const changes = req.body;
+  // console.log(changes);
+  try {
+    const userInfo = await Users.update(id, changes);
+    console.log(userInfo);
+    res.status(200).json(userInfo);
+  } catch (e) {
+    dumpError(e);
+    res.status(500).json({ error: "Could not update user" });
+  }
+});
+
 module.exports = router;
