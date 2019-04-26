@@ -58,6 +58,7 @@ Requires user to be logged in and have a token
 
 ```javascript
 {
+    "id":1,
     "username":"test1",
     "first_name":"Steve",
     "last_name":"Barker",
@@ -65,6 +66,35 @@ Requires user to be logged in and have a token
     "has_insurance":true,
     "insurance_name":"Harvard Pilgrim",
     "type":"patient"
+}
+```
+
+### PUT /api/users/{id}
+
+Requires user to be logged in
+
+Accepts an object like the example to update the user
+
+```javascript
+{
+	"id":1,
+	"username":"test1",
+	"first_name":"Steve",
+	"last_name":"Barker",
+	"email":"test@test.com",
+	"has_insurance":true,
+	"insurance_name":"Harvard Phlem",
+	"type":"patient"
+}
+```
+
+200 (Success) Returns Updated user info object
+
+400 (Bad Request) Returns
+
+```javascript
+{
+    "error":"Malformed request. Make sure object is formatted correctly"
 }
 ```
 
