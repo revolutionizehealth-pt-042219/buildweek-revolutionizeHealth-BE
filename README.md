@@ -52,7 +52,7 @@ Accepts an object of schema
 }
 ```
 
-### GET /api/users/{username}
+### GET /api/users/{id}
 
 Requires user to be logged in and have a token
 
