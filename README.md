@@ -8,7 +8,8 @@ TODO
 
 ## Examples
 
-POST /api/users/register
+### POST /api/users/register
+
 Accepts an object of schema
 
 ```javascript
@@ -24,7 +25,8 @@ Accepts an object of schema
 }
 ```
 
-POST /api/users/login
+### POST /api/users/login
+
 Accepts an object of schema
 
 ```javascript
@@ -50,7 +52,9 @@ Accepts an object of schema
 }
 ```
 
-GET /api/users/{username}
+### GET /api/users/{username}
+
+Requires user to be logged in and have a token
 
 ```javascript
 {
@@ -60,7 +64,6 @@ GET /api/users/{username}
     "email":"test@test.com",
     "has_insurance":true,
     "insurance_name":"Harvard Pilgrim",
-    "insurance_type":"State",
     "type":"patient"
 }
 ```
