@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const { genToken } = require("../auth/tokenService");
 const Users = require("../users/usersModel");
 const { dumpError } = require("../utils/dumpError");
+const { authenticate } = require("../auth/authMiddleware");
 
 router.post("/register", async (req, res) => {
   let userInfo = req.body;
@@ -57,7 +58,7 @@ router.post("/login", async (req, res) => {
 });
 
 //get info about single user
-router.get("/:username", async (req, res) => {
+router.get("/:username", authenticate, async (req, res) => {
   const { username } = req.params;
   console.log(username);
   try {
