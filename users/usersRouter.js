@@ -44,7 +44,7 @@ router.post("/login", async (req, res) => {
       .json({ message: "please provide a username and password to login" });
   } else {
     try {
-      const user = await Users.findByUsername(username);
+      const user = await Users.findCredentialsByUsername(username);
       if (user && bcrypt.compareSync(password, user.password)) {
         const token = genToken(user);
         res.status(200).json({ token });

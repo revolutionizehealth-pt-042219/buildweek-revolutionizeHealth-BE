@@ -4,7 +4,7 @@ const { insertIfDoesNotExist } = require("../insurance/insuranceHelpers");
 module.exports = {
   insert,
   update,
-  findByUsername,
+  findCredentialsByUsername,
   remove,
   getUserInfoByUsername,
   getUserInfoById
@@ -106,7 +106,7 @@ async function update(id, changes) {
   return getUserInfoById(id);
 }
 
-function findByUsername(username) {
+function findCredentialsByUsername(username) {
   return db("users")
     .where({ username })
     .first();
