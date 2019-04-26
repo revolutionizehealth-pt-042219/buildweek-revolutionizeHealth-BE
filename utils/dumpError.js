@@ -1,4 +1,6 @@
-module.exports = function dumpError(err) {
+module.exports = { dumpError };
+
+function dumpError(err) {
   if (typeof err === "object") {
     if (err.message) {
       console.log("\nMessage: " + err.message);
@@ -11,4 +13,4 @@ module.exports = function dumpError(err) {
   } else {
     console.log("dumpError :: argument is not an object");
   }
-};
+}

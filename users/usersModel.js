@@ -101,7 +101,7 @@ function getUserInfoByUsername(username) {
       "type"
     )
     .from("users")
-    .where({ "users.username": username })
+    .where({ username })
     .innerJoin("users_info", "users_info.user_id", "users.id")
     .innerJoin("insurance_info", "insurance_info.id", "users_info.insurance_id")
     .first();

@@ -30,7 +30,7 @@ router.post("/register", async (req, res) => {
       res.status(201).json({ token });
     } catch (e) {
       dumpError(e);
-      https: res.status(500).json({ error: "could not create user" });
+      res.status(500).json({ error: "could not create user" });
     }
   }
 });
@@ -57,6 +57,16 @@ router.post("/login", async (req, res) => {
 });
 
 //get info about single user
-router.get("/:user", (req, res) => {});
+router.get("/:username", async (req, res) => {
+  const { username } = req.params;
+  console.log(username);
+  try {
+    const userInfo = await Users.getUserInfoByUsername(username);
+    res.status(200).json(userInfo);
+  } catch (e) {
+    dumpError(e);
+    res.status(500).json({ error: "Could not retrive user" });
+  }
+});
 
 module.exports = router;
