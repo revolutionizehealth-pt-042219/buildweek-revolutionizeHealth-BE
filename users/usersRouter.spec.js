@@ -10,7 +10,7 @@ beforeEach(() => {
 describe("The Users Router", () => {
   const route = "/api/users";
   describe("POST /register", () => {
-    it("should send back a JWT on successful registration", async () => {
+    it.only("should send back a JWT on successful registration", async () => {
       const user = { username: "test1", password: "test1" };
       const res = await req(server)
         .post(route + "/register")

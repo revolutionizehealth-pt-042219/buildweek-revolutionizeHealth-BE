@@ -5,22 +5,32 @@ const { genToken } = require("../auth/tokenService");
 const Users = require("../users/usersModel");
 
 router.post("/register", async (req, res) => {
-  let user = req.body;
-  if (!user.username || !user.password) {
+  let userInfo = req.body;
+  //https://stackoverflow.com/questions/17781472/how-to-get-a-subset-of-a-javascript-objects-properties
+
+  //check for credentials
+  if (!userInfo.username || !userInfo.password) {
     res.status(400).json({
       message: "please provide a username and password for registration"
     });
   } else {
     try {
       //Hash the password
-      const hash = bcrypt.hashSync(user.password, 13);
-      user.password = hash;
+      const hash = bcrypt.hashSync(userInfo.password, 13);
+      userInfo.password = hash;
+
       // add the user to the database
-      const newUser = await Users.insert(user);
+      const newUser = await Users.insert(userInfo);
+
+      //generate token
       const token = genToken(newUser);
+
+      //return token
       res.status(201).json({ token });
     } catch (e) {
-      res.status(201).json({ error: "could not create user" });
+      dumpError(e);
+      //stackoverflow.com/questions/1340872/how-to-get-javascript-caller-function-line-number-how-to-get-javascript-caller
+      https: res.status(500).json({ error: "could not create user" });
     }
   }
 });
@@ -45,5 +55,20 @@ router.post("/login", async (req, res) => {
     }
   }
 });
+
+function dumpError(err) {
+  if (typeof err === "object") {
+    if (err.message) {
+      console.log("\nMessage: " + err.message);
+    }
+    if (err.stack) {
+      console.log("\nStacktrace:");
+      console.log("====================");
+      console.log(err.stack);
+    }
+  } else {
+    console.log("dumpError :: argument is not an object");
+  }
+}
 
 module.exports = router;

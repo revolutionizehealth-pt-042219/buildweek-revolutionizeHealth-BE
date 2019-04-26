@@ -1,8 +1,10 @@
 exports.up = function(knex) {
   return knex.schema.createTable("insurance_info", insurance => {
     insurance.increments();
-    insurance.string("insurance_name").notNullable();
-    insurance.string("insurance_type").notNullable();
+    insurance
+      .string("insurance_name")
+      .notNullable()
+      .unique();
   });
 };
 
