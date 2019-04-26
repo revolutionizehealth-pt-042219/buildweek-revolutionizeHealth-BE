@@ -13,15 +13,14 @@ Accepts an object of schema
 
 ```javascript
 {
-    "username":"test1",
-    "password":"test1",
-    "first_name":"Steve",
-    "last_name":"Barker",
-    "email":"test@test.com",
-    "has_insurance":true,//optional defaults to false
-    "insurance_name":"Harvard Pilgrim",
-    "insurance_type":"State",
-    "type":"patient"
+	"username":"test1",
+	"password":"test1",
+	"first_name":"Steve",
+	"last_name":"Barker",
+	"email":"test@test.com",
+	"has_insurance":true,
+	"insurance_name":"Harvard Pilgrim",
+	"type":"patient"
 }
 ```
 
