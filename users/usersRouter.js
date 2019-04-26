@@ -3,6 +3,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const { genToken } = require("../auth/tokenService");
 const Users = require("../users/usersModel");
+const { dumpError } = require("../utils/dumpError");
 
 router.post("/register", async (req, res) => {
   let userInfo = req.body;
@@ -29,7 +30,6 @@ router.post("/register", async (req, res) => {
       res.status(201).json({ token });
     } catch (e) {
       dumpError(e);
-      //stackoverflow.com/questions/1340872/how-to-get-javascript-caller-function-line-number-how-to-get-javascript-caller
       https: res.status(500).json({ error: "could not create user" });
     }
   }
@@ -56,19 +56,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-function dumpError(err) {
-  if (typeof err === "object") {
-    if (err.message) {
-      console.log("\nMessage: " + err.message);
-    }
-    if (err.stack) {
-      console.log("\nStacktrace:");
-      console.log("====================");
-      console.log(err.stack);
-    }
-  } else {
-    console.log("dumpError :: argument is not an object");
-  }
-}
+//get info about single user
+router.get("/:user", (req, res) => {});
 
 module.exports = router;
