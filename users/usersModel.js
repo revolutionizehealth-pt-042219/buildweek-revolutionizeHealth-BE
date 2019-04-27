@@ -60,7 +60,7 @@ async function insert(userInfo) {
   }))(userInfo);
 
   //insert userInfo into users_info
-  const [user_info_id] = await db("users_info").insert(userProfile, "id");
+  const [user_info_id] = await db("users_info").insert(userProfile, ["id"]);
 
   return db
     .select(
