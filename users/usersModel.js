@@ -43,6 +43,7 @@ async function insert(userInfo) {
   console.log(insurance);
   //pass credientials into db
   const [user] = await db("users").insert(userCredintials, ["id"]);
+  console.log("user", user);
 
   //add id and insurance id to the user info
   let userProfile = (({
@@ -57,7 +58,7 @@ async function insert(userInfo) {
     last_name,
     email,
     has_insurance,
-    insurance_id: insurance.id,
+    insurance_id: insurance,
     type
   }))(userInfo);
 
