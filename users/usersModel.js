@@ -23,9 +23,11 @@ async function insert(userInfo) {
 
   if (has_insurance && insurance_name) {
     //check for existing insurance
-    [insurance] = await db("insurance_info").where({
-      insurance_name
-    });
+    [insurance] = await db("insurance_info")
+      .where({
+        insurance_name
+      })
+      .select("id");
     insurance ? (insurance = insurance.id) : null;
     if (!insurance) {
       //else make insurance entry
