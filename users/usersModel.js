@@ -55,7 +55,7 @@ async function insert(userInfo) {
     last_name,
     email,
     has_insurance,
-    insurance_id,
+    insurance_id: insurance_id,
     type
   }))(userInfo);
 
