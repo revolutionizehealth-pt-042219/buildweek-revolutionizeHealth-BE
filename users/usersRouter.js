@@ -23,7 +23,7 @@ router.post("/register", async (req, res) => {
 
       // add the user to the database
       const newUser = await Users.insert(userInfo);
-
+      console.log(newUser);
       //generate token
       const token = genToken(newUser);
 

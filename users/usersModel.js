@@ -26,16 +26,21 @@ async function insert(userInfo) {
     [insurance_id] = await db("insurance_info").where({
       insurance_name
     });
+    insurance_id ? (insurance_id = insurance_id.id) : null;
     if (!insurance_id) {
       //else make insurance entry
-      [insurance_id] = await db("insurance_info").insert({
-        insurance_name
-      });
+      [insurance_id] = await db("insurance_info").insert(
+        {
+          insurance_name
+        },
+        ["id"]
+      );
     }
   }
 
+  console.log(insurance_id);
   //pass credientials into db
-  const [user_id] = await db("users").insert(userCredintials);
+  const [user_id] = await db("users").insert(userCredintials, ["id"]);
 
   //add id and insurance id to the user info
   let userProfile = (({
@@ -55,7 +60,7 @@ async function insert(userInfo) {
   }))(userInfo);
 
   //insert userInfo into users_info
-  const [user_info_id] = await db("users_info").insert(userProfile);
+  const [user_info_id] = await db("users_info").insert(userProfile, "id");
 
   return db
     .select(

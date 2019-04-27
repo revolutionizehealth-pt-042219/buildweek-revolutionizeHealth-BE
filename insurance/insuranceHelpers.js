@@ -8,10 +8,8 @@ module.exports = {
 };
 
 async function insert(insurance_name) {
-  const [id] = await db("insurance_info").insert(insurance_name);
-  return db("insurance_info")
-    .where({ id })
-    .first();
+  const [id] = await db("insurance_info").insert(insurance_name, ["id"]);
+  return db("insurance_info").where({ id });
 }
 async function update(insurance_name, changes) {
   await db("insurance_info")
@@ -38,11 +36,12 @@ async function insertIfDoesNotExist(insurance_name) {
     .first();
   if (!insurance) {
     //else make insurance entry
-    insurance = await db("insurance_info")
-      .insert({
+    insurance = await db("insurance_info").insert(
+      {
         insurance_name
-      })
-      .first();
+      },
+      ["id"]
+    );
   }
   const { id } = insurance;
   return id;
