@@ -19,17 +19,17 @@ async function insert(userInfo) {
 
   //get insurance info
   let { has_insurance, insurance_name } = userInfo;
-  let insurance_id;
+  let insurance;
 
   if (has_insurance && insurance_name) {
     //check for existing insurance
-    [insurance_id] = await db("insurance_info").where({
+    [insurance] = await db("insurance_info").where({
       insurance_name
     });
-    insurance_id ? (insurance_id = insurance_id.id) : null;
-    if (!insurance_id) {
+    insurance ? (insurance = insurance.id) : null;
+    if (!insurance) {
       //else make insurance entry
-      [insurance_id] = await db("insurance_info").insert(
+      [insurance] = await db("insurance_info").insert(
         {
           insurance_name
         },
@@ -38,9 +38,9 @@ async function insert(userInfo) {
     }
   }
 
-  console.log(insurance_id);
+  console.log(insurance);
   //pass credientials into db
-  const [user_id] = await db("users").insert(userCredintials, ["id"]);
+  const [user] = await db("users").insert(userCredintials, ["id"]);
 
   //add id and insurance id to the user info
   let userProfile = (({
@@ -50,18 +50,18 @@ async function insert(userInfo) {
     has_insurance,
     type
   }) => ({
-    user_id: user_id,
+    user_id: user.id,
     first_name,
     last_name,
     email,
     has_insurance,
-    insurance_id: insurance_id,
+    insurance_id: insurance.id,
     type
   }))(userInfo);
 
   //insert userInfo into users_info
   console.log(userProfile);
-  console.log(insurance_id);
+  console.log(insurance);
   const [user_info_id] = await db("users_info").insert(userProfile, ["id"]);
 
   return db
@@ -76,7 +76,7 @@ async function insert(userInfo) {
       "type"
     )
     .from("users")
-    .where({ "users.id": user_id })
+    .where({ "users.id": user.id })
     .innerJoin("users_info", "users_info.user_id", "users.id")
     .innerJoin("insurance_info", "insurance_info.id", "users_info.insurance_id")
     .first();
