@@ -47,8 +47,8 @@ async function insert(userInfo) {
   }
 
   //insert userInfo into users_info
-  console.log(userProfile);
-  console.log(insurance_id);
+  console.log("userprofile", userProfile);
+  console.log("insurance_id", insurance_id);
   const [user_info_id] = await db("users_info").insert(userProfile, ["id"]);
 
   return db
