@@ -42,7 +42,7 @@ async function insertIfDoesNotExist(insurance_name) {
         insurance_name
       },
       ["id"]
-    )[0];
+    );
     console.log("doesn't exust", insurance);
   }
   const { id } = insurance;
