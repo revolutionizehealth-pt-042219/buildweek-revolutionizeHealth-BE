@@ -28,15 +28,14 @@ async function insert(userInfo) {
         insurance_name
       })
       .select("id");
-    insurance ? (insurance = insurance.id) : null;
     if (!insurance) {
       //else make insurance entry
-      [insurance] = await db("insurance_info").insert(
+      insurance.id = await db("insurance_info").insert(
         {
           insurance_name
         },
         ["id"]
-      );
+      )[0];
     }
   }
 
