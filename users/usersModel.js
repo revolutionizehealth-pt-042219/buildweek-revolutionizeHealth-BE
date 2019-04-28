@@ -65,7 +65,7 @@ async function insert(userInfo) {
     .from("users")
     .where({ "users.id": user.id })
     .innerJoin("users_info", "users_info.user_id", "users.id")
-    .innerJoin("insurance_info", "insurance_info.id", "users_info.insurance_id")
+    .leftJoin("insurance_info", "insurance_info.id", "users_info.insurance_id")
     .first();
 }
 
