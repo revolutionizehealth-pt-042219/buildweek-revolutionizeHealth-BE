@@ -24,7 +24,6 @@ async function insert(userInfo) {
   if (has_insurance && insurance_name) {
     insurance_id = insertIfDoesNotExist(insurance_name);
   }
-  console.log("insurance", insurance);
   //pass credientials into db
   const [user] = await db("users").insert(userCredintials, ["id"]);
   console.log("user", user);
