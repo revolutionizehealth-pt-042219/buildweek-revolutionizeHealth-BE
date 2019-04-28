@@ -34,6 +34,7 @@ async function insertIfDoesNotExist(insurance_name) {
       insurance_name
     })
     .first();
+  console.log("doesn't exust", insurance);
   if (!insurance) {
     //else make insurance entry
     insurance = await db("insurance_info").insert(
@@ -43,6 +44,7 @@ async function insertIfDoesNotExist(insurance_name) {
       ["id"]
     );
   }
+  console.log("does exust", insurance);
   const { id } = insurance;
   return id;
 }
