@@ -22,24 +22,9 @@ async function insert(userInfo) {
   let insurance;
 
   if (has_insurance && insurance_name) {
-    //check for existing insurance
-    [insurance] = await db("insurance_info")
-      .where({
-        insurance_name
-      })
-      .select("id");
-    if (!insurance) {
-      //else make insurance entry
-      insurance.id = await db("insurance_info").insert(
-        {
-          insurance_name
-        },
-        ["id"]
-      )[0];
-    }
+    insertIfDoesNotExist(insurance_name);
   }
-
-  console.log(insurance);
+  console.log("insurance", insurance);
   //pass credientials into db
   const [user] = await db("users").insert(userCredintials, ["id"]);
   console.log("user", user);
