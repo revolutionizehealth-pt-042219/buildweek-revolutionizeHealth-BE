@@ -19,10 +19,10 @@ async function insert(userInfo) {
 
   //get insurance info
   let { has_insurance, insurance_name } = userInfo;
-  let insurance;
+  let insurance_id;
 
   if (has_insurance && insurance_name) {
-    insertIfDoesNotExist(insurance_name);
+    insurance_id = insertIfDoesNotExist(insurance_name);
   }
   console.log("insurance", insurance);
   //pass credientials into db
@@ -42,7 +42,7 @@ async function insert(userInfo) {
     last_name,
     email,
     has_insurance,
-    insurance_id: insurance.id,
+    insurance_id: insurance_id,
     type
   }))(userInfo);
 
