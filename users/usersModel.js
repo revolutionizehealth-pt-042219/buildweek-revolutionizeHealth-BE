@@ -17,13 +17,6 @@ async function insert(userInfo) {
     password
   }))(userInfo);
 
-  //get insurance info
-  let { has_insurance, insurance_name } = userInfo;
-  let insurance_id;
-
-  if (has_insurance && insurance_name) {
-    insurance_id = await insertIfDoesNotExist(insurance_name);
-  }
   //pass credientials into db
   const [user] = await db("users").insert(userCredintials, ["id"]);
   console.log("user", user);
@@ -41,9 +34,17 @@ async function insert(userInfo) {
     last_name,
     email,
     has_insurance,
-    insurance_id: insurance_id,
     type
   }))(userInfo);
+
+  //get insurance info
+  let { has_insurance, insurance_name } = userInfo;
+  let insurance_id;
+
+  if (has_insurance && insurance_name) {
+    insurance_id = await insertIfDoesNotExist(insurance_name);
+    userProfile.insurance_id = insurance_id;
+  }
 
   //insert userInfo into users_info
   console.log(userProfile);
