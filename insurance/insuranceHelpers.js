@@ -37,7 +37,7 @@ async function insertIfDoesNotExist(insurance_name) {
   console.log("does exust", insurance);
   if (!insurance) {
     //else make insurance entry
-    insurance = await db("insurance_info").insert(
+    [insurance] = await db("insurance_info").insert(
       {
         insurance_name
       },
