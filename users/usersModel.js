@@ -22,7 +22,7 @@ async function insert(userInfo) {
   let insurance_id;
 
   if (has_insurance && insurance_name) {
-    insurance_id = insertIfDoesNotExist(insurance_name);
+    insurance_id = await insertIfDoesNotExist(insurance_name);
   }
   //pass credientials into db
   const [user] = await db("users").insert(userCredintials, ["id"]);
