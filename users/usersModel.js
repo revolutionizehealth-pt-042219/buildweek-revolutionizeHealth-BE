@@ -156,7 +156,7 @@ function remove(id) {
         .where({ id })
         .del()
         .then(res => {
-          return db("user_info")
+          return db("users_info")
             .transacting(t)
             .where({ user_id: id })
             .del();
