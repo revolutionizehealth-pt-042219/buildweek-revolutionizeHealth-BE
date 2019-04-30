@@ -31,6 +31,7 @@ function authenticate(req, res, next) {
 
 function authorize(req, res, next) {
   const { id } = req.params;
+  console.log(id, req.params);
   if (req.decoded.id !== id) {
     res.status(401).json({ error: "Unauthorized" });
   } else {
