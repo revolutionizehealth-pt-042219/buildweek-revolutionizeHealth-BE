@@ -84,4 +84,16 @@ router.put("/:id", authenticate, authorize, async (req, res) => {
   }
 });
 
+router.delete("/:id", authenticate, authorize, async (req, res) => {
+  const { id } = req.params;
+  try {
+    const num = await Users.remove(id);
+    if (num) res.status(200).json(userInfo);
+    else res.status(400).json({ error: "Unable to delete" });
+  } catch (e) {
+    dumpError(e);
+    res.status(500).json({ error: "Could not update user" });
+  }
+});
+
 module.exports = router;

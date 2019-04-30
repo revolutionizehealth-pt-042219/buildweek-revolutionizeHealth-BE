@@ -144,8 +144,32 @@ function getUserInfoById(id) {
     .first();
 }
 
-function remove(username) {
-  return db("users")
-    .where({ username: username })
-    .del();
+function remove(id) {
+  // const num = await db('user_info').where({id}).del();
+  // return db("users")
+  //   .where({ id })
+  //   .del();
+  return db
+    .transaction(t => {
+      return db("users")
+        .transacting(t)
+        .where({ id })
+        .del()
+        .then(res => {
+          return db("user_info")
+            .transacting(t)
+            .where({ id })
+            .del();
+        })
+        .then(t.commit)
+        .catch(t.rollback);
+    })
+    .then(() => {
+      // transaction suceeded, data written
+      console.log("success");
+    })
+    .catch(() => {
+      // transaction failed, data rolled back
+      console.log("failed");
+    });
 }
