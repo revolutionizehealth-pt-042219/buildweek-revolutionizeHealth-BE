@@ -62,8 +62,7 @@ exports.up = function(knex) {
       "WV",
       "WY"
     ]);
-    hospital.string("street").notNullable();
-    hospital.enum("type", ["patient", "doctor"]);
+    hospital.string("zip", 10).notNullable();
   });
 };
 
