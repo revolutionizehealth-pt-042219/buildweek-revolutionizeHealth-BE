@@ -10,6 +10,7 @@ TODO
 
 ### POST /api/users/register
 
+`https://buildweek-revo-health-be.herokuapp.com/api/users/register`
 Accepts an object of schema
 
 ```javascript
@@ -27,6 +28,7 @@ Accepts an object of schema
 
 ### POST /api/users/login
 
+`https://buildweek-revo-health-be.herokuapp.com/api/users/login`
 Accepts an object of schema
 
 ```javascript
@@ -54,6 +56,7 @@ Accepts an object of schema
 
 ### GET /api/users/{id}
 
+`https://buildweek-revo-health-be.herokuapp.com/api/users/1`
 Requires user to be logged in and have a token
 
 ```javascript
@@ -71,6 +74,9 @@ Requires user to be logged in and have a token
 
 ### PUT /api/users/{id}
 
+`https://buildweek-revo-health-be.herokuapp.com/api/users/1`
+
+If user does not exist you will get an error.
 Requires user to be logged in
 
 Accepts an object like the example to update the user
