@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 const { genToken } = require("../auth/tokenService");
 const Users = require("../users/usersModel");
 const { dumpError } = require("../utils/dumpError");
-const { authenticate } = require("../auth/authMiddleware");
+const { authenticate, authorize } = require("../auth/authMiddleware");
 
 router.post("/register", async (req, res) => {
   let userInfo = req.body;
@@ -58,9 +58,11 @@ router.post("/login", async (req, res) => {
 });
 
 //get info about single user
-router.get("/:id", authenticate, async (req, res) => {
+router.get("/:id", authenticate, authorize, async (req, res) => {
   const { id } = req.params;
-  console.log(id);
+  if (req.decoded.id !== id) {
+    res.status(401).json({ error: "Unauthorized" });
+  }
   try {
     const userInfo = await Users.getUserInfoById(id);
     res.status(200).json(userInfo);
@@ -70,7 +72,7 @@ router.get("/:id", authenticate, async (req, res) => {
   }
 });
 
-router.put("/:id", authenticate, async (req, res) => {
+router.put("/:id", authenticate, authorize, async (req, res) => {
   const { id } = req.params;
   const changes = req.body;
   //TODO handle bad req

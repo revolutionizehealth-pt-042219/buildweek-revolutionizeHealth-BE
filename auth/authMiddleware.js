@@ -6,7 +6,8 @@ const jwtKey =
 
 // quickly see what this file exports
 module.exports = {
-  authenticate
+  authenticate,
+  authorize
 };
 
 // implementation details
@@ -25,5 +26,14 @@ function authenticate(req, res, next) {
     return res.status(401).json({
       error: "No token provided, must be set on the Authorization Header"
     });
+  }
+}
+
+function authorize(req, res, next) {
+  const { id } = req.params;
+  if (req.decoded.id !== id) {
+    res.status(401).json({ error: "Unauthorized" });
+  } else {
+    next();
   }
 }
