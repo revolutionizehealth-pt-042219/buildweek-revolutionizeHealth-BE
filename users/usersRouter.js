@@ -88,11 +88,11 @@ router.delete("/:id", authenticate, authorize, async (req, res) => {
   const { id } = req.params;
   try {
     const num = await Users.remove(id);
-    if (num) res.status(200).json(userInfo);
-    else res.status(400).json({ error: "Unable to delete" });
+    if (num) res.status(200).json({ message: "Successfully Deleted" });
+    else res.status(400).json({ error: "User Does not exist" });
   } catch (e) {
     dumpError(e);
-    res.status(500).json({ error: "Could not update user" });
+    res.status(500).json({ error: "Could not Delete User" });
   }
 });
 
