@@ -1,6 +1,6 @@
 const db = require("../database/dbConfig");
 const { insertIfDoesNotExist } = require("../insurance/insuranceHelpers");
-
+const { dumpError } = require("../utils/dumpError");
 module.exports = {
   insert,
   update,
