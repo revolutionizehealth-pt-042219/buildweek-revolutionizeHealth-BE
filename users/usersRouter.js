@@ -60,9 +60,6 @@ router.post("/login", async (req, res) => {
 //get info about single user
 router.get("/:id", authenticate, authorize, async (req, res) => {
   const { id } = req.params;
-  if (req.decoded.id !== id) {
-    res.status(401).json({ error: "Unauthorized" });
-  }
   try {
     const userInfo = await Users.getUserInfoById(id);
     res.status(200).json(userInfo);
