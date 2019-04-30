@@ -77,7 +77,8 @@ Requires user to be logged in and have a token
 `https://buildweek-revo-health-be.herokuapp.com/api/users/1`
 
 If user does not exist you will get an error.
-Requires user to be logged in
+Requires user to be logged in, requires the user have
+the same id as the req
 
 Accepts an object like the example to update the user
 
@@ -101,6 +102,30 @@ Accepts an object like the example to update the user
 ```javascript
 {
     "error":"Malformed request. Make sure object is formatted correctly"
+}
+```
+
+### DELETE /api/users/{id}
+
+`https://buildweek-revo-health-be.herokuapp.com/api/users/1`
+
+If user does not exist you will get an error.
+Requires user to be logged in, requires the user have
+the same id as the req
+
+200 (Success) Returns
+
+```javascript
+{
+  "message": "Successfully Deleted"
+}
+```
+
+400 (Bad Request) Returns
+
+```javascript
+{
+  error: "User Does not exist";
 }
 ```
 
