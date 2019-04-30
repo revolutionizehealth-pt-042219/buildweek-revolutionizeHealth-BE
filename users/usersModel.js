@@ -167,9 +167,12 @@ function remove(id) {
     .then(() => {
       // transaction suceeded, data written
       console.log("success");
+      return 1;
     })
-    .catch(() => {
+    .catch(e => {
       // transaction failed, data rolled back
+      dumpError(e);
       console.log("failed");
+      return 0;
     });
 }
