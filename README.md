@@ -26,6 +26,21 @@ Accepts an object of schema
 }
 ```
 
+OR without insurance
+
+```javascript
+{
+	"username":"test5",
+	"password":"test5",
+	"first_name":"Steve",
+	"last_name":"Barker",
+	"email":"test@test.com",
+	"has_insurance":false,
+	"type":"patient"
+}
+
+```
+
 ### POST /api/users/login
 
 `https://buildweek-revo-health-be.herokuapp.com/api/users/login`
