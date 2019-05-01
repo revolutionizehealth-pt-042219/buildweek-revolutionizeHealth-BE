@@ -17,7 +17,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authenticate, async (req, res) => {
   const procedureInfo = req.body;
   try {
     const newProcedure = await Procedures.insert(procedureInfo);
