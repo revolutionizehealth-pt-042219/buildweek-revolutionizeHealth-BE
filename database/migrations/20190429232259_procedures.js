@@ -12,6 +12,12 @@ exports.up = function(knex) {
       .unsigned()
       .notNullable();
     procedure.foreign("id").references("doctors");
+    procedure.foreign("id").references("users");
+    procedure
+      .integer("user_id")
+      .unsigned()
+      .notNullable();
+    procedure.foreign("id").references("doctors");
     procedure.float("procedure_cost").notNullable();
     procedure.float("insurance_payment").notNullable();
     procedure.float("insurance_adjustment").notNullable();

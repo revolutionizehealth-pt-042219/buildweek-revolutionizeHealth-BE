@@ -1,8 +1,12 @@
 const db = require("../database/dbConfig");
+const { insertHospital } = require("../hospitals/hospitalHelpers");
+const { insertDoctor } = require("../doctors/doctorsHelpers");
 const { dumpError } = require("../utils/dumpError");
 
 module.exports = {
-  insert
+  insert,
+  getById,
+  get
 };
 
 async function insert(procedureInfo) {
@@ -28,49 +32,47 @@ async function insert(procedureInfo) {
     insurance_payment,
     insurance_adjustment,
     out_of_pocket,
-    anonymous
+    anonymous,
+    user_id
   }) => ({
     procedure_name,
     procedure_cost,
     insurance_payment,
     insurance_adjustment,
     out_of_pocket,
-    anonymous
+    anonymous,
+    user_id
   }))(procedureInfo);
 
   //TODO WRITE IF EXISTS FUNC
-  //CHANGE ALL TO USE .returning("id"); //passing a string returns an array of strings back 🔥
-  db.transaction(async trx => {
-    //insert hosptial
-    console.log(hospital);
-    const [hospital_id] = await trx("hospitals")
-      .insert(hospital)
-      .returning("id"); //passing a string returns an array of strings back 🔥
-    console.log(hospital_id);
+  const newProcedureId = await db
+    .transaction(async trx => {
+      //insert hosptial
+      const hospital_id = await insertHospital(hospital, trx);
 
-    //add hospital id to doctor and insert doctor
-    doctor.hospital_id = hospital_id;
-    console.log(doctor);
-    const [doctor_id] = await trx("doctors")
-      .insert(doctor)
-      .returning("id");
-    console.log(doctor_id);
+      //add hospital id to doctor and insert doctor
+      doctor.hospital_id = hospital_id;
+      const doctor_id = await insertDoctor(doctor, trx);
 
-    //add doctor_id and hospital_id to procedure and insert procedure
-    procedure.doctor_id = doctor_id;
-    procedure.hospital_id = hospital_id;
-    console.log(procedure);
-    const [procedure_id] = await trx("procedures")
-      .insert(procedure)
-      .returning("id");
-    console.log(procedure_id);
+      //add doctor_id and hospital_id to procedure and insert procedure
+      procedure.doctor_id = doctor_id;
+      procedure.hospital_id = hospital_id;
+      const [procedure_id] = await trx("procedures")
+        .insert(procedure)
+        .returning("id");
 
-    throw new Error("Trasaction will be rolled back");
-  })
-    .then(() =>
-      console.log("Transaction was executed and committed correctly!")
-    )
-    .catch(err => console.log("Transaction failed:", err.message));
+      // throw new Error("Trasaction will be rolled back");
+      return procedure_id;
+    })
+    .then(result => {
+      // console.log("Transaction was executed and committed correctly!");
+      return result;
+    })
+    .catch(err => {
+      dumpError(err);
+      console.log("Transaction failed:", err.message);
+    });
+  return await getById(newProcedureId);
 }
 
 async function get(query) {
@@ -93,8 +95,35 @@ async function get(query) {
         "anonymous",
         "username"
       )
+      .where({ "procedures.id": id })
       .from("procedures")
-      .innerJoin("username", "users.id", "procedures.user_id")
-      .leftJoin();
+      .leftJoin("users", "users.id", "procedures.user_id")
+      .leftJoin("hospitals", "hospitals.id", "procedures.hospital_id")
+      .leftJoin("doctors", "doctors.id", "procedures.doctor_id");
   }
+}
+
+async function getById(id) {
+  return await db
+    .select(
+      "procedures.id",
+      "procedure_name",
+      "hospital_name",
+      "city",
+      "state",
+      "zip",
+      "street",
+      "doctor_name",
+      "procedure_cost",
+      "insurance_payment",
+      "insurance_adjustment",
+      "out_of_pocket",
+      "anonymous",
+      "username"
+    )
+    .where({ "procedures.id": id })
+    .from("procedures")
+    .leftJoin("users", "users.id", "procedures.user_id")
+    .leftJoin("hospitals", "hospitals.id", "procedures.hospital_id")
+    .leftJoin("doctors", "doctors.id", "procedures.doctor_id");
 }
