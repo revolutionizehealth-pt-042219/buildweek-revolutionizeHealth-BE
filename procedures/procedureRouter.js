@@ -5,7 +5,16 @@ const { dumpError } = require("../utils/dumpError");
 const { authenticate, authorize } = require("../auth/authMiddleware");
 
 router.get("/", async (req, res) => {
-  res.status(200).json({ message: "here" });
+  const query = req.params;
+  console.log(query);
+  const procedures = await Procedures.get(query);
+
+  try {
+    res.status(200).json(procedures);
+  } catch (e) {
+    dumpError(e);
+    res.status(500).json({ error: "could not get procedures" });
+  }
 });
 
 router.post("/", async (req, res) => {

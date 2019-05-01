@@ -76,7 +76,7 @@ async function insert(procedureInfo) {
 }
 
 async function get(query) {
-  if (query) {
+  if (Object.keys(query).length > 0) {
   } else {
     return db
       .select(
@@ -95,7 +95,6 @@ async function get(query) {
         "anonymous",
         "username"
       )
-      .where({ "procedures.id": id })
       .from("procedures")
       .leftJoin("users", "users.id", "procedures.user_id")
       .leftJoin("hospitals", "hospitals.id", "procedures.hospital_id")
