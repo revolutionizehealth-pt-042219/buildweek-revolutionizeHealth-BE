@@ -1,7 +1,7 @@
 exports.up = function(knex) {
   return knex.schema.createTable("hospitals", hospital => {
     hospital.increments();
-    hospital.string("name", 255).notNullable();
+    hospital.string("hospital_name", 255).notNullable();
     hospital.string("city", 255).notNullable();
     hospital.string("street", 255).notNullable();
     hospital

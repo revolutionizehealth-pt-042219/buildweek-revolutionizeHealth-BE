@@ -1,9 +1,9 @@
 exports.up = function(knex) {
   return knex.schema.createTable("procedures", procedure => {
     procedure.increments();
-    procedure.string("name", 255).notNullable();
+    procedure.string("procedure_name", 255).notNullable();
     procedure
-      .integer("hosptial_id")
+      .integer("hospital_id")
       .unsigned()
       .notNullable();
     procedure.foreign("id").references("hospitals");
