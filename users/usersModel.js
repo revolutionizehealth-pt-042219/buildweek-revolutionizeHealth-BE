@@ -18,10 +18,10 @@ async function insert(userInfo) {
   }))(userInfo);
 
   //pass credientials into db
-  const [user] = await db("users")
+  const [user_id] = await db("users")
     .insert(userCredintials)
     .returning("id");
-  console.log("user", user);
+  console.log("user_id", user_id);
 
   //add id and insurance id to the user info
   let userProfile = (({
@@ -31,7 +31,7 @@ async function insert(userInfo) {
     has_insurance,
     type
   }) => ({
-    user_id: user.id,
+    user_id: user_id,
     first_name,
     last_name,
     email,
@@ -67,7 +67,7 @@ async function insert(userInfo) {
       "type"
     )
     .from("users")
-    .where({ "users.id": user.id })
+    .where({ "users.id": user_id })
     .innerJoin("users_info", "users_info.user_id", "users.id")
     .leftJoin("insurance_info", "insurance_info.id", "users_info.insurance_id")
     .first();

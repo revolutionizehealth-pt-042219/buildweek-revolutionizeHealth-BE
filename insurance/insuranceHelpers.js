@@ -28,21 +28,23 @@ async function findAll() {
 // otherwise it returns the idea of the existing insurance
 async function insertIfDoesNotExist(insurance_name) {
   //check for existing insurance
-  let insurance;
-  insurance = await db("insurance_info")
+  let id;
+  id = await db
+    .select("id")
+    .from("insurance_info")
     .where({
       insurance_name
     })
     .first();
-  console.log("does exust", insurance);
-  if (!insurance) {
+  console.log("does exust", id);
+  if (!id) {
     //else make insurance entry
-    [insurance] = await db("insurance_info")
+    [id] = await db("insurance_info")
       .insert({
         insurance_name
       })
       .returning("id");
-    console.log("doesn't exust", insurance);
+    console.log("doesn't exust", id);
   }
   return id;
 }
