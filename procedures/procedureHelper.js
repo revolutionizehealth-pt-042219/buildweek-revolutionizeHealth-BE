@@ -1,6 +1,9 @@
 const db = require("../database/dbConfig");
-const { insertHospital } = require("../hospitals/hospitalHelpers");
-const { insertDoctor } = require("../doctors/doctorsHelpers");
+const {
+  insertHospital,
+  updateHospital
+} = require("../hospitals/hospitalHelpers");
+const { insertDoctor, updateDoctor } = require("../doctors/doctorsHelpers");
 const { dumpError } = require("../utils/dumpError");
 
 module.exports = {
@@ -76,7 +79,7 @@ async function insert(procedureInfo) {
   return await getById(newProcedureId);
 }
 
-async function update(id, changes) {
+async function update(id, changes, hospitalId, doctorId) {
   //get hospital info
   let hospital = (({ hospital_name, city, street, state, zip }) => ({
     hospital_name,
@@ -115,11 +118,11 @@ async function update(id, changes) {
   const newProcedureId = await db
     .transaction(async trx => {
       //insert hosptial
-      const hospital_id = await insertHospital(hospital, trx);
+      const hospital_id = await updateHospital(hospital, hospitalId, trx);
 
       //add hospital id to doctor and insert doctor
       doctor.hospital_id = hospital_id;
-      const doctor_id = await insertDoctor(doctor, trx);
+      const doctor_id = await updateDoctor(doctor, doctorId, trx); //FIXEME
 
       //add doctor_id and hospital_id to procedure and insert procedure
       procedure.doctor_id = doctor_id;
@@ -149,11 +152,13 @@ async function get(query) {
       .select(
         "procedures.id",
         "procedure_name",
+        "procedures.hospital_id",
         "hospital_name",
         "city",
         "state",
         "zip",
         "street",
+        "procedures.doctor_id",
         "doctor_name",
         "procedure_cost",
         "insurance_payment",
@@ -174,11 +179,13 @@ async function getById(id) {
     .select(
       "procedures.id",
       "procedure_name",
+      "procedures.hospital_id",
       "hospital_name",
       "city",
       "state",
       "zip",
       "street",
+      "procedures.doctor_id",
       "doctor_name",
       "procedure_cost",
       "insurance_payment",

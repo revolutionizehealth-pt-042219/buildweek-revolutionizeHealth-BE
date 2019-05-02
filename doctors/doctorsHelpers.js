@@ -4,7 +4,8 @@ module.exports = {
   insert,
   update,
   findAll,
-  insertDoctor
+  insertDoctor,
+  updateDoctor
 };
 
 async function insert(doctor) {
@@ -48,4 +49,22 @@ async function insertDoctor(doctor, trx) {
     console.log("doctor doesn't exust", id);
   }
   return id;
+}
+async function updateDoctor(changes, id, trx) {
+  //check for existing hospital
+  let doctorId;
+  doctorId = await trx("doctors")
+    .where({
+      id
+    })
+    .update(changes);
+  console.log(" doctors does exist", doctorId);
+  if (!doctorId) {
+    //else make insurance entry
+    [doctorId] = await trx("doctors")
+      .insert(changes)
+      .returning("id");
+    console.log(" doctors doesn't exust", doctorId);
+  }
+  return doctorId;
 }
