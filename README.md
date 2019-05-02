@@ -197,4 +197,10 @@ Does not need to be logged in to get all procedures
 
 `https://buildweek-revo-health-be.herokuapp.com/api/procedures`
 
+### GET /api/procedures/:id
+
+Does not need to be logged in to get single procedure
+
+`https://buildweek-revo-health-be.herokuapp.com/api/procedures/1`
+
 # buildweek-revolutionizeHealth-FE
