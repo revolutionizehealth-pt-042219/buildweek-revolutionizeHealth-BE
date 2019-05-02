@@ -19,7 +19,7 @@ exports.seed = function(knex, Promise) {
         },
         {
           id: 3,
-          username: "test2",
+          username: "test3",
           password:
             "$2a$13$iV0QBeoZFeXxVRyfUsWYlOM3EquTFl2jFZt32HTeyDk4IQooFIE.C"
         }
