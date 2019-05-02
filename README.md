@@ -144,6 +144,57 @@ the same id as the req
 }
 ```
 
-TODO
+### POST /api/procedures/
+
+`https://buildweek-revo-health-be.herokuapp.com/api/procedures`
+
+Requires user to be logged in to post a procedure
+
+Accepts Object schema of
+
+```javascript
+{
+	"user_id":1,
+	"procedure_name":"tonsillectomy",
+	"hospital_name":"Mercy Hospital",
+	"city":"Pine Bluff",
+	"state":"AR",
+	"zip":71601,
+	"street":"2300 S Olive St",
+	"doctor_name":"Dr. Smithington",
+	"procedure_cost":2000,
+	"insurance_payment":1500,
+	"insurance_adjustment":200,
+	"out_of_pocket":300,
+	"anonymous":false
+}
+```
+
+or
+
+```javascript
+{
+	"user_id":1,
+	"procedure_name":"tonsillectomy",
+	"hospital_name":"Mercy Hospital",
+	"city":"Pine Bluff",
+	"state":"AR",
+	"zip":71601,
+	"street":"2300 S Olive St",
+	"doctor_name":"Dr. Smithington",
+	"specialization":"lobotomies",
+	"procedure_cost":2000,
+	"insurance_payment":1500,
+	"insurance_adjustment":200,
+	"out_of_pocket":300,
+	"anonymous":false
+}
+```
+
+### GET /api/procedures/
+
+Does not need to be logged in to get all procedures
+
+`https://buildweek-revo-health-be.herokuapp.com/api/procedures`
 
 # buildweek-revolutionizeHealth-FE
