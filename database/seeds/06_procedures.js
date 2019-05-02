@@ -1,10 +1,10 @@
-exports.seed = function(knex, Promise) {
+exports.seed = async function(knex, Promise) {
   // Deletes ALL existing entries
-  knex.raw("SET foreign_key_checks = 0");
+  await knex.raw("SET foreign_key_checks = 0");
   return knex("procedures")
     .truncate()
-    .then(function() {
-      knex.raw("SET foreign_key_checks = 1");
+    .then(async function() {
+      await knex.raw("SET foreign_key_checks = 1");
       // Inserts seed entries
       return knex("procedures").insert([
         {
