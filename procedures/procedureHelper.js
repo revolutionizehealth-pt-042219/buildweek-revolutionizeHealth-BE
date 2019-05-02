@@ -6,7 +6,8 @@ const { dumpError } = require("../utils/dumpError");
 module.exports = {
   insert,
   getById,
-  get
+  get,
+  update
 };
 
 async function insert(procedureInfo) {
@@ -43,6 +44,72 @@ async function insert(procedureInfo) {
     anonymous,
     user_id
   }))(procedureInfo);
+
+  //TODO WRITE IF EXISTS FUNC
+  const newProcedureId = await db
+    .transaction(async trx => {
+      //insert hosptial
+      const hospital_id = await insertHospital(hospital, trx);
+
+      //add hospital id to doctor and insert doctor
+      doctor.hospital_id = hospital_id;
+      const doctor_id = await insertDoctor(doctor, trx);
+
+      //add doctor_id and hospital_id to procedure and insert procedure
+      procedure.doctor_id = doctor_id;
+      procedure.hospital_id = hospital_id;
+      const [procedure_id] = await trx("procedures")
+        .insert(procedure)
+        .returning("id");
+
+      // throw new Error("Trasaction will be rolled back");
+      return procedure_id;
+    })
+    .then(result => {
+      // console.log("Transaction was executed and committed correctly!");
+      return result;
+    })
+    .catch(err => {
+      dumpError(err);
+      console.log("Transaction failed:", err.message);
+    });
+  return await getById(newProcedureId);
+}
+
+async function update(id, changes) {
+  //get hospital info
+  let hospital = (({ hospital_name, city, street, state, zip }) => ({
+    hospital_name,
+    city,
+    street,
+    state,
+    zip
+  }))(changes);
+
+  //get doctor info (still needs hospital_id)
+  let doctor = (({ doctor_name, specialization }) => ({
+    doctor_name,
+    specialization
+  }))(changes);
+
+  //get procedure info (needs hospital_id and doctor_id)
+  let procedure = (({
+    procedure_name,
+    procedure_cost,
+    insurance_payment,
+    insurance_adjustment,
+    out_of_pocket,
+    anonymous,
+    user_id
+  }) => ({
+    procedure_name,
+    procedure_cost,
+    insurance_payment,
+    insurance_adjustment,
+    out_of_pocket,
+    anonymous,
+    user_id
+  }))(changes);
 
   //TODO WRITE IF EXISTS FUNC
   const newProcedureId = await db
