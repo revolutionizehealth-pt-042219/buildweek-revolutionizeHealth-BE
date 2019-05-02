@@ -6,10 +6,19 @@ const { authenticate, authorize } = require("../auth/authMiddleware");
 
 router.get("/", async (req, res) => {
   const query = req.params;
-  console.log(query);
-  const procedures = await Procedures.get(query);
-
   try {
+    const procedures = await Procedures.get(query);
+    res.status(200).json(procedures);
+  } catch (e) {
+    dumpError(e);
+    res.status(500).json({ error: "could not get procedures" });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const procedures = await Procedures.getById(id);
     res.status(200).json(procedures);
   } catch (e) {
     dumpError(e);
