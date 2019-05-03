@@ -192,7 +192,8 @@ async function getById(id) {
       "insurance_adjustment",
       "out_of_pocket",
       "anonymous",
-      "username"
+      "username",
+      "users.id"
     )
     .where({ "procedures.id": id })
     .from("procedures")
