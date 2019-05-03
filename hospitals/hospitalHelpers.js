@@ -6,6 +6,7 @@ module.exports = {
   update,
   get,
   getById,
+  remove,
   insertHospital,
   updateHospital
 };
@@ -23,6 +24,11 @@ async function update(id, changes) {
   return db("hospitals")
     .where({ id })
     .first();
+}
+async function remove(id) {
+  return db("hospitals")
+    .where({ id })
+    .del();
 }
 
 async function get() {

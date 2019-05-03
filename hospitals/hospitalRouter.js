@@ -45,7 +45,18 @@ router.put("/:hospitalId", authenticate, async (req, res) => {
     res.status(201).json(updatedHosptial);
   } catch (e) {
     dumpError(e);
-    res.status(500).json({ error: "could not create procedure" });
+    res.status(500).json({ error: "could not update hospitals" });
+  }
+});
+
+router.delete("/:hospitalId", authenticate, async (req, res) => {
+  const { hospitalId } = req.params;
+  try {
+    const updatedHosptial = await Hospitals.remove(hospitalId);
+    res.status(201).json({ message: "hospital removed" });
+  } catch (e) {
+    dumpError(e);
+    res.status(500).json({ error: "could not remove hospital" });
   }
 });
 
