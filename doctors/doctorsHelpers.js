@@ -4,7 +4,9 @@ const isEquivalent = require("../utils/isObjEq");
 module.exports = {
   insert,
   update,
-  findAll,
+  get,
+  getById,
+  remove,
   insertDoctor,
   updateDoctor
 };
@@ -24,8 +26,20 @@ async function update(id, changes) {
     .first();
 }
 
-async function findAll() {
+async function get() {
   return db("doctors");
+}
+
+async function getById(id) {
+  return db("doctors")
+    .where({ id })
+    .first();
+}
+
+async function remove(id) {
+  return db("doctors")
+    .where({ id })
+    .del();
 }
 
 // inserts the doctor into the doctor table if it doesn't exist
