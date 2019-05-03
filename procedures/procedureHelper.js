@@ -127,10 +127,14 @@ async function update(id, changes, hospitalId, doctorId) {
       //add doctor_id and hospital_id to procedure and insert procedure
       procedure.doctor_id = doctor_id;
       procedure.hospital_id = hospital_id;
-      const [procedure_id] = await trx("procedures")
-        .insert(procedure)
+      const procedure_id = await trx("procedures")
+        .where({
+          id
+        })
+        .update(procedure)
         .returning("id");
 
+      console.log("procedure ID", procedure_id);
       // throw new Error("Trasaction will be rolled back");
       return procedure_id;
     })

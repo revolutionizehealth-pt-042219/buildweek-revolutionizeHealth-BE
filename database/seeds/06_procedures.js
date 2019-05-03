@@ -1,10 +1,10 @@
 exports.seed = async function(knex, Promise) {
   // Deletes ALL existing entries
-  knex.raw("ALTER your_table DISABLE TRIGGER ALL;");
+  knex.raw("ALTER procedures DISABLE TRIGGER ALL;");
   return knex("procedures")
     .truncate()
     .then(async function() {
-      await knex.raw("SET foreign_key_checks = 1");
+      knex.raw("ALTER procedures ENABLE TRIGGER ALL;");
       // Inserts seed entries
       return knex("procedures").insert([
         {

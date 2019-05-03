@@ -1,4 +1,5 @@
 const db = require("../database/dbConfig");
+const isEquivalent = require("../utils/isObjEq");
 
 module.exports = {
   insert,
@@ -51,20 +52,19 @@ async function insertDoctor(doctor, trx) {
   return id;
 }
 async function updateDoctor(changes, id, trx) {
-  //check for existing hospital
-  let doctorId;
-  doctorId = await trx("doctors")
+  //get old doctor
+  const doctor = await trx("doctors")
     .where({
       id
     })
-    .update(changes);
-  console.log(" doctors does exist", doctorId);
-  if (!doctorId) {
-    //else make insurance entry
-    [doctorId] = await trx("doctors")
+    .first();
+  //compare
+  if (isEquivalent(changes, doctor)) {
+    return id;
+  } else {
+    const [doctorId] = await trx("doctors")
       .insert(changes)
       .returning("id");
-    console.log(" doctors doesn't exust", doctorId);
+    return doctorId;
   }
-  return doctorId;
 }
