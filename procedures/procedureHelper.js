@@ -165,7 +165,8 @@ async function get(query) {
         "insurance_adjustment",
         "out_of_pocket",
         "anonymous",
-        "username"
+        "username",
+        "users.id"
       )
       .from("procedures")
       .leftJoin("users", "users.id", "procedures.user_id")
