@@ -166,7 +166,7 @@ async function get(query) {
         "out_of_pocket",
         "anonymous",
         "username",
-        "users.id"
+        "procedures.user_id"
       )
       .from("procedures")
       .leftJoin("users", "users.id", "procedures.user_id")
@@ -194,7 +194,7 @@ async function getById(id) {
       "out_of_pocket",
       "anonymous",
       "username",
-      "users.id"
+      "procedures.user_id"
     )
     .where({ "procedures.id": id })
     .from("procedures")

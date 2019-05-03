@@ -1,6 +1,6 @@
 exports.seed = async function(knex, Promise) {
   // Deletes ALL existing entries
-  await knex.raw("SET foreign_key_checks = 0");
+  knex.raw("ALTER your_table DISABLE TRIGGER ALL;");
   return knex("doctors")
     .truncate()
     .then(async function() {
