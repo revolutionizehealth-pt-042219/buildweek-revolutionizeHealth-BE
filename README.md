@@ -203,4 +203,31 @@ Does not need to be logged in to get single procedure
 
 `https://buildweek-revo-health-be.herokuapp.com/api/procedures/1`
 
+### PUT /api/procedures/:id
+
+Needs to be logged in and the creator of a procedure to edit the procedure
+
+`https://buildweek-revo-health-be.herokuapp.com/api/procedures/1`
+
+Accepts object schema of:
+
+```javascript
+{
+	"user_id":1,
+	"procedure_name":"tonsillectomy",
+	"hospital_name":"Big Body Shop",
+	"city":"Pine Bluff",
+	"state":"AR",
+	"zip":71601,
+	"street":"2300 S Olive St",
+	"doctor_name":"Dr. Smithington",
+	"specialization":"lobotomies",
+	"procedure_cost":2000,
+	"insurance_payment":1500,
+	"insurance_adjustment":200,
+	"out_of_pocket":300,
+	"anonymous":false
+}
+```
+
 # buildweek-revolutionizeHealth-FE

@@ -70,10 +70,14 @@ router.get("/:id", authenticate, authorize, async (req, res) => {
 
 router.put("/:id", authenticate, authorize, async (req, res) => {
   const { id } = req.params;
-  const changes = req.body;
+  let changes = req.body;
+  if (changes.id) {
+    delete changes.id;
+  }
   //TODO handle bad req
   //"error":"Malformed request. Make sure object is formatted correctly"
   try {
+    console.log("changes", changes);
     const userInfo = await Users.update(id, changes);
     console.log(userInfo);
     res.status(200).json(userInfo);
