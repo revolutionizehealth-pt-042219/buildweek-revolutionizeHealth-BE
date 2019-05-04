@@ -2,11 +2,7 @@
 
 This is the backend for the Revolutionize Health Team Product.
 
-## How To Log In
-
-TODO
-
-## Examples
+##users
 
 ### POST /api/users/register
 
@@ -144,6 +140,59 @@ the same id as the req
 }
 ```
 
+#hospitals
+
+### POST /api/hospitals/
+
+`https://buildweek-revo-health-be.herokuapp.com/api/hospitals`
+
+Requires user to be logged in to post a hospital
+
+Accepts Object schema of
+
+```javascript
+{
+  "hospital_name": "Mercy Hospital",
+  "city": "Pine Bluff",
+  "street": "2300 S Olive St",
+  "state": "AR",
+  "zip": "71601"
+}
+```
+
+### GET /api/hospitals/
+
+`https://buildweek-revo-health-be.herokuapp.com/api/hospitals`
+Returns all hospitals
+
+### GET /api/hospitals/:hospitalId
+
+`https://buildweek-revo-health-be.herokuapp.com/api/hospitals/:hospitalId`
+Returns hosptial with `hospitalId`
+
+### PUT /api/hospitals/
+
+Requires user to be logged in to edit a hospital
+
+Accepts Object schema of
+
+```javascript
+{
+  "hospital_name": "Mercy Hospital",
+  "city": "Pine Bluff",
+  "street": "2300 S Olive St",
+  "state": "AR",
+  "zip": "71601"
+}
+```
+
+### DELETE /api/hospitals/:hospitalId
+
+`https://buildweek-revo-health-be.herokuapp.com/api/hospitals/:hospitalId`
+Deletes hosptial with `hospitalId`
+
+##prcedures
+
 ### POST /api/procedures/
 
 `https://buildweek-revo-health-be.herokuapp.com/api/procedures`
@@ -229,5 +278,3 @@ Accepts object schema of:
 	"anonymous":false
 }
 ```
-
-# buildweek-revolutionizeHealth-FE
