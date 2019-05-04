@@ -35,7 +35,7 @@ async function insertIfDoesNotExist(insurance_name) {
     .where({
       insurance_name
     })
-    .first().id;
+    .first();
   console.log("does exust", id);
   if (!id) {
     //else make insurance entry
