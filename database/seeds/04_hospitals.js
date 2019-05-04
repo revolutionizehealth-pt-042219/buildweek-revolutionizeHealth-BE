@@ -8,7 +8,6 @@ exports.seed = async function(knex, Promise) {
       // knex.raw("ALTER hospitals ENABLE TRIGGER ALL;");
       return knex("hospitals").insert([
         {
-          id: 1,
           hospital_name: "Mercy Hospital",
           city: "Pine Bluff",
           state: "AR",
@@ -16,7 +15,6 @@ exports.seed = async function(knex, Promise) {
           street: "2300 S Olive St"
         },
         {
-          id: 2,
           hospital_name: "Generic Hospital",
           city: "Pine Bluff",
           state: "AR",
@@ -24,7 +22,6 @@ exports.seed = async function(knex, Promise) {
           street: "1601 S Cherry St"
         },
         {
-          id: 3,
           hospital_name: "Jefferson Regional Medical Center",
           city: "Pine Bluff",
           state: "AR",
@@ -32,7 +29,6 @@ exports.seed = async function(knex, Promise) {
           street: "1600 W 40th Ave"
         },
         {
-          id: 4,
           hospital_name: "Memphis Zoo",
           city: "Memphis",
           state: "TN",
@@ -40,7 +36,6 @@ exports.seed = async function(knex, Promise) {
           street: "2000 Prentiss Pl"
         },
         {
-          id: 5,
           hospital_name: "Meeman-Shelby Forest State Park",
           city: "Millington",
           state: "TN",

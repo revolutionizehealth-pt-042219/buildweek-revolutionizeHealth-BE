@@ -8,7 +8,6 @@ exports.seed = async function(knex, Promise) {
       // knex.raw("ALTER users_info ENABLE TRIGGER ALL;");
       return knex("users_info").insert([
         {
-          id: 1,
           user_id: 1,
           first_name: "Todd",
           last_name: "Howard",
@@ -18,7 +17,6 @@ exports.seed = async function(knex, Promise) {
           type: "patient"
         },
         {
-          id: 2,
           user_id: 2,
           first_name: "Hank",
           last_name: "Hill",
@@ -28,7 +26,6 @@ exports.seed = async function(knex, Promise) {
           type: "patient"
         },
         {
-          id: 3,
           user_id: 3,
           first_name: "Digones",
           last_name: "I dunno",

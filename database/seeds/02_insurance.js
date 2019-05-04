@@ -7,9 +7,9 @@ exports.seed = async function(knex, Promise) {
       // Inserts seed entries
       // knex.raw("ALTER insurance_info ENABLE TRIGGER ALL;");
       return knex("insurance_info").insert([
-        { id: 1, insurance_name: "Harvard Pilgrim" },
-        { id: 2, insurance_name: "Blue Cross" },
-        { id: 3, insurance_name: "Red Shield" }
+        { insurance_name: "Harvard Pilgrim" },
+        { insurance_name: "Blue Cross" },
+        { insurance_name: "Red Shield" }
       ]);
     });
 };

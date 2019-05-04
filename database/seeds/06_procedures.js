@@ -8,7 +8,6 @@ exports.seed = async function(knex, Promise) {
       // Inserts seed entries
       return knex("procedures").insert([
         {
-          id: 1,
           procedure_name: "Tonsilectomy",
           hospital_id: 1,
           doctor_id: 1,
@@ -20,7 +19,6 @@ exports.seed = async function(knex, Promise) {
           anonymous: false
         },
         {
-          id: 2,
           procedure_name: "Tonsilectomy",
           hospital_id: 2,
           doctor_id: 2,
@@ -32,7 +30,6 @@ exports.seed = async function(knex, Promise) {
           anonymous: false
         },
         {
-          id: 3,
           procedure_name: "Tonsilectomy",
           hospital_id: 3,
           doctor_id: 3,
@@ -44,7 +41,6 @@ exports.seed = async function(knex, Promise) {
           anonymous: false
         },
         {
-          id: 4,
           procedure_name: "Prosthestis Implant",
           hospital_id: 4,
           doctor_id: 4,
@@ -56,7 +52,6 @@ exports.seed = async function(knex, Promise) {
           anonymous: false
         },
         {
-          id: 5,
           procedure_name: "Lobotomy",
           hospital_id: 5,
           doctor_id: 5,
@@ -68,7 +63,6 @@ exports.seed = async function(knex, Promise) {
           anonymous: false
         },
         {
-          id: 6,
           procedure_name: "stiches",
           hospital_id: 1,
           doctor_id: 1,
@@ -80,7 +74,6 @@ exports.seed = async function(knex, Promise) {
           anonymous: false
         },
         {
-          id: 7,
           procedure_name: "stiches",
           hospital_id: 2,
           doctor_id: 2,
@@ -92,7 +85,6 @@ exports.seed = async function(knex, Promise) {
           anonymous: false
         },
         {
-          id: 8,
           procedure_name: "stiches",
           hospital_id: 3,
           doctor_id: 3,
