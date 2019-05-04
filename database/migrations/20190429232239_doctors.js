@@ -4,8 +4,7 @@ exports.up = function(knex) {
     doctor
       .integer("hospital_id")
       .unsigned()
-      .notNullable();
-    doctor.foreign("id").references("hospitals");
+      .references("hospitals");
     doctor.string("doctor_name", 255).notNullable();
     doctor.string("specialization", 255);
   });

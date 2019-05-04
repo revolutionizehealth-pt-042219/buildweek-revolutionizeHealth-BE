@@ -1,11 +1,11 @@
 exports.seed = async function(knex, Promise) {
   // Deletes ALL existing entries
-  knex.raw("ALTER users_info DISABLE TRIGGER ALL;");
+  // knex.raw("ALTER users_info DISABLE TRIGGER ALL;");
   return knex("users_info")
     .truncate()
     .then(async function() {
       // Inserts seed entries
-      knex.raw("ALTER users_info ENABLE TRIGGER ALL;");
+      // knex.raw("ALTER users_info ENABLE TRIGGER ALL;");
       return knex("users_info").insert([
         {
           id: 1,

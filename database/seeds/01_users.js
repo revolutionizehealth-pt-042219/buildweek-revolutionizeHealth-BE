@@ -1,6 +1,6 @@
 exports.seed = async function(knex, Promise) {
   // Deletes ALL existing entries
-  await knex.raw("truncate table users cascade");
+  // await knex.raw("truncate table users cascade");
   return knex("users").then(async function() {
     // Inserts seed entries
     return knex("users").insert([
