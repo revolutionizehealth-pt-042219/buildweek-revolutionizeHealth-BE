@@ -10,7 +10,8 @@ module.exports = {
   insert,
   getById,
   get,
-  update
+  update,
+  remove
 };
 
 async function insert(procedureInfo) {
@@ -48,7 +49,6 @@ async function insert(procedureInfo) {
     user_id
   }))(procedureInfo);
 
-  //TODO WRITE IF EXISTS FUNC
   const newProcedureId = await db
     .transaction(async trx => {
       //insert hosptial
@@ -69,12 +69,10 @@ async function insert(procedureInfo) {
       return procedure_id;
     })
     .then(result => {
-      // console.log("Transaction was executed and committed correctly!");
       return result;
     })
     .catch(err => {
       dumpError(err);
-      console.log("Transaction failed:", err.message);
     });
   return await getById(newProcedureId);
 }
@@ -139,12 +137,10 @@ async function update(id, changes, hospitalId, doctorId) {
       return procedure_id;
     })
     .then(result => {
-      // console.log("Transaction was executed and committed correctly!");
       return result;
     })
     .catch(err => {
       dumpError(err);
-      console.log("Transaction failed:", err.message);
     });
   return await getById(newProcedureId);
 }
@@ -205,4 +201,12 @@ async function getById(id) {
     .leftJoin("users", "users.id", "procedures.user_id")
     .leftJoin("hospitals", "hospitals.id", "procedures.hospital_id")
     .leftJoin("doctors", "doctors.id", "procedures.doctor_id");
+}
+
+async function remove(id) {
+  return await db("procedures")
+    .where({
+      id
+    })
+    .del();
 }

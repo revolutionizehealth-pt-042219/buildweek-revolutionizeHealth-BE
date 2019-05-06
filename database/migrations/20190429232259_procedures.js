@@ -18,10 +18,10 @@ exports.up = function(knex) {
       .unsigned()
       .notNullable();
     procedure.foreign("id").references("doctors");
-    procedure.float("procedure_cost").notNullable();
-    procedure.float("insurance_payment").notNullable();
-    procedure.float("insurance_adjustment").notNullable();
-    procedure.float("out_of_pocket").notNullable();
+    procedure.string("procedure_cost").notNullable();
+    procedure.string("insurance_payment").notNullable();
+    procedure.string("insurance_adjustment").notNullable();
+    procedure.string("out_of_pocket").notNullable();
     procedure.bool("anonymous").notNullable();
   });
 };

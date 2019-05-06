@@ -30,7 +30,6 @@ router.post("/", authenticate, async (req, res) => {
   const procedureInfo = req.body;
   try {
     const newProcedure = await Procedures.insert(procedureInfo);
-    console.log("newProcedure", newProcedure);
     res.status(201).json(newProcedure);
   } catch (e) {
     dumpError(e);
@@ -54,8 +53,22 @@ router.put("/:procedureId", authenticate, async (req, res) => {
         hospital_id,
         doctor_id
       );
-      console.log("newProcedure", newProcedure);
       res.status(201).json(newProcedure);
+    }
+  } catch (e) {
+    dumpError(e);
+    res.status(500).json({ error: "could not create procedure" });
+  }
+});
+
+router.delete("/:procedureId", authenticate, async (req, res) => {
+  const { procedureId } = req.params;
+  try {
+    const count = await Procedures.remove(procedureId);
+    if (count) {
+      res.status(201).json({ message: "successfully deleted procedure" });
+    } else {
+      res.status(404).json({ error: "procedure does not exist" });
     }
   } catch (e) {
     dumpError(e);
