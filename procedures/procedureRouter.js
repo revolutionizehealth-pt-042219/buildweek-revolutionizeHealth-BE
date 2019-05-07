@@ -42,7 +42,7 @@ router.put("/:procedureId", authenticate, async (req, res) => {
   const { procedureId } = req.params;
   try {
     const [procedure] = await Procedures.getById(procedureId);
-    const { hospital_id, doctor_id } = changes;
+    const { hospital_id, doctor_id } = procedure;
     console.log(procedure);
     //if the user who made the procedure is not the one trying to edit
     if (procedure.user_id !== req.decoded.id) {
