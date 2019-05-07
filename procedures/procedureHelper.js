@@ -80,7 +80,7 @@ async function insert(procedureInfo) {
 async function update(id, changes, hospitalId, doctorId) {
   //get hospital info
 
-  console.log(id, changes, hospitalId, doctorId);
+  // console.log(id, changes, hospitalId, doctorId);
   let hospital = (({ hospital_name, city, street, state, zip }) => ({
     hospital_name,
     city,
@@ -114,7 +114,6 @@ async function update(id, changes, hospitalId, doctorId) {
     user_id
   }))(changes);
 
-  //TODO WRITE IF EXISTS FUNC
   const newProcedureId = await db
     .transaction(async trx => {
       //insert hosptial
@@ -127,7 +126,7 @@ async function update(id, changes, hospitalId, doctorId) {
       //add doctor_id and hospital_id to procedure and insert procedure
       procedure.doctor_id = doctor_id;
       procedure.hospital_id = hospital_id;
-      const procedure_id = await trx("procedures")
+      const [procedure_id] = await trx("procedures")
         .where({
           id
         })
