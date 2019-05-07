@@ -255,19 +255,22 @@ Accepts Object schema of
 
 ```javascript
 {
-	"user_id":1,
-	"procedure_name":"tonsillectomy",
-	"hospital_name":"Mercy Hospital",
-	"city":"Pine Bluff",
-	"state":"AR",
-	"zip":71601,
-	"street":"2300 S Olive St",
-	"doctor_name":"Dr. Smithington",
-	"procedure_cost":2000,
-	"insurance_payment":1500,
-	"insurance_adjustment":200,
-	"out_of_pocket":300,
-	"anonymous":false
+	"procedure_name": "Tooth Extraction",
+	"hospital_id": 20,
+	"hospital_name": "Meeman-Shelby Forest State Park",
+	"city": "Millington",
+	"state": "TN",
+	"zip": "38053",
+	"street": "910 Riddick Rd",
+	"doctor_id": 15,
+	"doctor_name": "Karen",
+	"procedure_cost": "50",
+	"insurance_payment": "0",
+	"insurance_adjustment": "0",
+	"out_of_pocket": "50",
+	"anonymous": false,
+	"username": "test1",
+	"user_id": 1
 }
 ```
 
@@ -314,21 +317,21 @@ Accepts object schema of:
 
 ```javascript
 {
-	"user_id":1,
-	"procedure_name":"tonsidgdgllectomy",
-	"hospital_id":2,
-	"hospital_name":"Big Body Stop Shop",
-	"city":"Pine Bluff",
-	"state":"AR",
-	"zip":71601,
-	"street":"2300 S Olive St",
-	"doctor_id":2,
-	"doctor_name":"Dr. Smithington",
-	"specialization":"lobotomies",
-	"procedure_cost":"200000",
-	"insurance_payment":"150000",
-	"insurance_adjustment":"200000",
-	"out_of_pocket":"300000",
-	"anonymous":false
+	"procedure_name": "Tooth Extraction",
+	"hospital_id": 20,
+	"hospital_name": "Meeman-Shelby Forest State Park",
+	"city": "Millington",
+	"state": "TN",
+	"zip": "38053",
+	"street": "910 Riddick Rd",
+	"doctor_id": 15,
+	"doctor_name": "Karen",
+	"procedure_cost": "50",
+	"insurance_payment": "0",
+	"insurance_adjustment": "0",
+	"out_of_pocket": "50",
+	"anonymous": false,
+	"username": "test1",
+	"user_id": 1
 }
 ```
