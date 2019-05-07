@@ -79,6 +79,8 @@ async function insert(procedureInfo) {
 
 async function update(id, changes, hospitalId, doctorId) {
   //get hospital info
+
+  console.log(id, changes, hospitalId, doctorId);
   let hospital = (({ hospital_name, city, street, state, zip }) => ({
     hospital_name,
     city,
