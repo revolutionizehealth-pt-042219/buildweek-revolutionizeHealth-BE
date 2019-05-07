@@ -191,7 +191,59 @@ Accepts Object schema of
 `https://buildweek-revo-health-be.herokuapp.com/api/hospitals/:hospitalId`
 Deletes hosptial with `hospitalId`
 
-##prcedures
+## doctors
+
+### POST /api/doctors/
+
+`https://buildweek-revo-health-be.herokuapp.com/api/doctors`
+
+Requires user to be logged in to post a hospital
+
+Accepts Object schema of
+
+```javascript
+{
+	"hospital_id": 2,
+	"doctor_name": "Dingo",
+	"specialization": "Bingo"
+}
+```
+
+### PUT /api/doctors/
+
+`https://buildweek-revo-health-be.herokuapp.com/api/doctors`
+
+Requires user to be logged in to post a hospital
+
+Accepts Object schema of
+
+```javascript
+{
+	"hospital_id": 2,
+	"doctor_name": "Dingo",
+	"specialization": "Bingo"
+}
+```
+
+### GET /api/doctors/
+
+`https://buildweek-revo-health-be.herokuapp.com/api/doctors`
+
+Gets all doctors
+
+### GET /api/doctors/:doctorId
+
+`https://buildweek-revo-health-be.herokuapp.com/api/doctors/:doctorId`
+
+Gets all doctors
+
+### DELETE /api/doctors/:doctorId
+
+`https://buildweek-revo-health-be.herokuapp.com/api/:doctorId`
+
+Gets all doctors
+
+##procedures
 
 ### POST /api/procedures/
 
@@ -263,18 +315,20 @@ Accepts object schema of:
 ```javascript
 {
 	"user_id":1,
-	"procedure_name":"tonsillectomy",
-	"hospital_name":"Big Body Shop",
+	"procedure_name":"tonsidgdgllectomy",
+	"hospital_id":2,
+	"hospital_name":"Big Body Stop Shop",
 	"city":"Pine Bluff",
 	"state":"AR",
 	"zip":71601,
 	"street":"2300 S Olive St",
+	"doctor_id":2,
 	"doctor_name":"Dr. Smithington",
 	"specialization":"lobotomies",
-	"procedure_cost":2000,
-	"insurance_payment":1500,
-	"insurance_adjustment":200,
-	"out_of_pocket":300,
+	"procedure_cost":"200000",
+	"insurance_payment":"150000",
+	"insurance_adjustment":"200000",
+	"out_of_pocket":"300000",
 	"anonymous":false
 }
 ```
