@@ -42,7 +42,7 @@ router.put("/:procedureId", authenticate, async (req, res) => {
   const { procedureId } = req.params;
   try {
     const [procedure] = await Procedures.getById(procedureId);
-    const { hospital_id, doctor_id } = procedure;
+    const { hospital_id, doctor_id } = changes;
     //if the user who made the procedure is not the one trying to edit
     if (procedure.id !== req.decoded.id) {
       res.status(401).json({ error: "Not Authorized To Edit Procedure" });
